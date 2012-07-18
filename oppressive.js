@@ -8,7 +8,7 @@ OP.Objection = function(id, spec) {
     }
 };
 OP.Objection.prototype.get = function(k) {
-    return OP.Subjectification.all[this[k]];
+    return OP.Subjectification.obj[this[k]];
 };
 OP.Objection.prototype.getAll = function(ks) {
     return ks.map(function(k) { return this.get(k); });
@@ -17,7 +17,16 @@ OP.Objection.prototype.getAll = function(ks) {
 // Load all object data on startup; anything too large for that can be
 // asynchronously loaded.
 OP.Subjectification = {
-    all: {},
+    obj: {},
+    all: function(dtype) {
+        var out = [];
+        for(var key in OP.Subjectification.obj) {
+            if(OP.Subjectification.obj[key] instanceof dtype) {
+                out.push(OP.Subjectification.obj[key]);
+            }
+        }
+        return out;
+    },
     load: function(jsonClassMap, cb) {
         var nrem = 0;
         for(var jsonPath in jsonClassMap) {
@@ -25,7 +34,7 @@ OP.Subjectification = {
             (function(cls) {
                 OP.UTIL.loadJson(jsonPath, function(res) {
                     for(var key in res) {
-                        OP.Subjectification.all[key] = new cls(key, res[key]);
+                        OP.Subjectification.obj[key] = new cls(key, res[key]);
                     }
                     nrem -= 1;
                     if(nrem === 0) {
