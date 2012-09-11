@@ -13,6 +13,9 @@ OP.Objection.prototype.get = function(k) {
 OP.Objection.prototype.getAll = function(ks) {
     return ks.map(function(k) { return this.get(k); });
 };
+OP.Objection.prototype.save = function() {
+    OP.Subjectification.obj[this._id] = this;
+};
 
 // Load all object data on startup; anything too large for that can be
 // asynchronously loaded.
@@ -34,7 +37,8 @@ OP.Subjectification = {
             (function(cls) {
                 OP.UTIL.loadJson(jsonPath, function(res) {
                     for(var key in res) {
-                        OP.Subjectification.obj[key] = new cls(key, res[key]);
+                        var obj = new cls(key, res[key]);
+                        obj.save();
                     }
                     nrem -= 1;
                     if(nrem === 0) {
