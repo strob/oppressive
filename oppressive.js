@@ -1,10 +1,10 @@
 var OP = {};
 
 // A poor-man's access to relational data.
-OP.Objection = function(id, spec) {
+OP.Objection = function(id, doc) {
     this._id = id;
-    for(var k in spec) {
-        this[k] = spec[k];
+    for(var k in doc) {
+        this[k] = doc[k];
     }
 };
 OP.Objection.prototype.get = function(k) {
@@ -12,6 +12,15 @@ OP.Objection.prototype.get = function(k) {
 };
 OP.Objection.prototype.getAll = function(ks) {
     return ks.map(function(k) { return this.get(k); });
+};
+OP.Objection.prototype.getDoc = function() {
+    var doc = {};
+    for(var key in this) {
+        if(this.hasOwnProperty(key) and key !== '_id') {
+            doc[key] = this[key];
+        }
+    }
+    return doc;
 };
 OP.Objection.prototype.save = function() {
     OP.Subjectification.obj[this._id] = this;
