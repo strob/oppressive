@@ -25,7 +25,7 @@ OP.Subjectification.load = function(jsClassMap, cb) {
         window.offload = make_load_function(jsClassMap[jspath]);
 
         var $el = document.createElement('script');
-        $el.setAttribute('src', jspath);
+        $el.setAttribute('src', jspath + '.js');
         document.body.appendChild($el);
     }
 };

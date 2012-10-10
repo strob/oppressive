@@ -3,7 +3,7 @@ OP.Subjectification.load =function(jsonClassMap, cb) {
     for(var jsonPath in jsonClassMap) {
         nrem += 1;
         (function(cls) {
-            OP.UTIL.loadJson(jsonPath, function(res) {
+            OP.UTIL.loadJson(jsonPath + '.json', function(res) {
                 for(var key in res) {
                     var obj = new cls(key, res[key]);
                     obj.save();

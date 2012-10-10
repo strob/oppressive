@@ -19,6 +19,13 @@ Oppressive is intended for ``medium-size'' data,
 ie. data that packs down to a reasonable size for network transmission,
 data that can be O(N) processed without a second thought.
 
+## Build
+
+Download the Google Closure compiler to the root directory, `compiler.jar.'
+
+```sh
+% make
+```
 ## Usage
 
 Oppressive is a hybrid fusion combining (some of) the
@@ -53,7 +60,7 @@ Then, on page load, we might call something like:
 
 ```js
 OP.Subjectification.load(
-  {"ConsumerProducts.json": ConsumerProduct},
+  {"ConsumerProducts": ConsumerProduct},
   function() {
     var products = OP.Subjectification.all(ConsumerProduct);
     products.forEach(function(product) {

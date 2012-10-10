@@ -40,3 +40,9 @@ OP.Subjectification = {
         return out;
     }
 };
+
+// May be overwritten if necessary.
+OP.ready = function(fn) {
+    // XXX: wait for the DOM to populate?
+    fn(OP);
+};
