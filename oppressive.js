@@ -6,6 +6,7 @@ OP.Objection = function(id, doc) {
     for(var k in doc) {
         this[k] = doc[k];
     }
+    OP.Subjectification.obj[this._id] = this;
 };
 OP.Objection.prototype.get = function(k) {
     return OP.Subjectification.obj[this[k]];
@@ -21,9 +22,6 @@ OP.Objection.prototype.getDoc = function() {
         }
     }
     return doc;
-};
-OP.Objection.prototype.save = function() {
-    OP.Subjectification.obj[this._id] = this;
 };
 
 // Load all object data on startup; anything too large for that can be

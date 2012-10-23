@@ -26,7 +26,6 @@ OP.Subjectification.load = function(jsonClassMap, cb) {
             nrem -= 1;
             for(var id in res) {
                 var obj = new cls(id, res[id]);
-                obj.save();
             }
             if(nrem == 0) {
                 cb();

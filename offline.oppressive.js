@@ -9,7 +9,6 @@ OP.Subjectification.load = function(jsClassMap, cb) {
             nrem -= 1;
             for(var key in res) {
                 var obj = new cls(key, res[key]);
-                obj.save();
             }
 
             console.log("nrem", nrem);

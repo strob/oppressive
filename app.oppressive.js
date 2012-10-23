@@ -13,7 +13,6 @@ OP.Subjectification.load = function(jsonClassMap, cb) {
         
         for(var id in res) {
             var obj = new cls(id, res[id]);
-            obj.save();
         }
     }
     cb();
