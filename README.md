@@ -11,9 +11,11 @@ It is designed to run:
 
 (a) without a webserver at all, by transforming data into code;
 
-(b) in a fileserver environment, where XMLHttpRequests are permitted;
+(b) in a PyQt thin-client
 
-(c) and all the way up to a real-time node/socket server.
+(c) in a fileserver environment, where XMLHttpRequests are permitted;
+
+(d) and all the way up to a real-time node/socket server.
 
 Oppressive is intended for ``medium-size'' data,
 ie. data that packs down to a reasonable size for network transmission,
