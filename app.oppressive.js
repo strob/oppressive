@@ -5,9 +5,16 @@ OP.ready = function(fn) {
     else { OP.onload = fn; }
 };
 
+OP.Objection.prototype.save = function() {
+    // XXX: Should _id be returned by a callback?
+    qbridge.save(this.getStore(), this._id, JSON.stringify(this.getDoc()));
+};
+
 OP.Subjectification.load = function(jsonClassMap, cb) {
     for(var key in jsonClassMap) {
+
         var cls = jsonClassMap[key];
+        cls.prototype.getStore = function() { return key; };
 
         var res = JSON.parse(qbridge.load(key));
         

@@ -23,11 +23,14 @@ OP.Objection.prototype.getDoc = function() {
     }
     return doc;
 };
+OP.Objection.prototype.save = function() {
+    // XXX: Overwrite
+};
 
 // Load all object data on startup; anything too large for that can be
 // asynchronously loaded.
 OP.Subjectification = {
-    obj: {},
+    obj: {},                    // id -> obj
     all: function(dtype) {
         var out = [];
         for(var key in OP.Subjectification.obj) {

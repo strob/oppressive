@@ -4,25 +4,57 @@
   </head>
   <body>
     <script>
-OP.ready(function() {
-    var ConsumerProduct = function(id, spec) {
-        OP.Objection.call(this, id, spec);
-    };
-    ConsumerProduct.prototype = new OP.Objection;
-    ConsumerProduct.prototype.sale = function() {
-        this.price *= 0.75;
-    };
+var ConsumerProduct = function(id, spec) {
+    OP.Objection.call(this, id, spec);
+};
+ConsumerProduct.prototype = new OP.Objection;
+ConsumerProduct.prototype.sale = function() {
+    this.price *= 0.75;
+};
+ConsumerProduct.prototype.getdiv = function() {
+    var $el = document.createElement('div');
+    $el.innerHTML = "<b>" + this.name + "</b>: $" + this.price;
+    return $el;
+};
 
+var $products = document.createElement('div');
+document.body.appendChild($products);
+
+var reset = function() {
+    $products.innerHTML = "";
+    OP.Subjectification.all(ConsumerProduct).forEach(function(product) {
+        $products.appendChild(product.getdiv());
+    });
+};
+
+var $sale = document.createElement('button');
+document.body.appendChild($sale);
+$sale.innerHTML = "DECLARE A SALE";
+$sale.onclick = function() {
+    OP.Subjectification.all(ConsumerProduct).forEach(function(product) {
+        product.sale();
+    });
+    reset();
+};
+var $newform = document.createElement('form');
+document.body.appendChild($newform);
+var $name = document.createElement('input');
+var $price = document.createElement('input');
+$newform.appendChild($name);
+$newform.appendChild($price);
+var $new = document.createElement('button');
+$new.innerHTML = "CREATE A NEW PRODUCT";
+document.body.appendChild($new);
+$new.onclick = function(ev) {
+    var item = new ConsumerProduct($name.value, {name: $name.value, price: Number($price.value)});
+    item.save();
+    reset();
+};
+
+OP.ready(function() {
     OP.Subjectification.load(
         {"ConsumerProducts": ConsumerProduct},
-        function() {
-            var products = OP.Subjectification.all(ConsumerProduct);
-            products.forEach(function(product) {
-                alert(product.name + ", $" + product.price);
-                product.sale();
-                alert("SALE! " + product.name + ", now only $" + product.price);
-            });
-        });
+        reset);
 });
     </script>
   </body>
