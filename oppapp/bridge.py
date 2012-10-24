@@ -4,9 +4,13 @@ import json
 import os
 
 class OppressiveBridge(QtCore.QObject):
-    def __init__(self):
+    def __init__(self, basepath='.'):
         QtCore.QObject.__init__(self)
+        self.basepath = basepath
         self.STATE = {}
+
+    def jsonpath(self, uid):
+        return os.path.join(self.basepath, uid) + '.json'
 
     @QtCore.pyqtSlot(str, result=str)
     def load(self, path):
@@ -14,8 +18,8 @@ class OppressiveBridge(QtCore.QObject):
 
         # XXX: Think about (abs/rel)paths for bundled applications
         if path not in self.STATE:
-            if os.path.exists(path + '.json'):
-                self.STATE[path] = json.load(open(path + '.json'))
+            if os.path.exists(self.jsonpath(path)):
+                self.STATE[path] = json.load(open(self.jsonpath(path)))
             else:
                 self.STATE[path] = {}
 
@@ -27,4 +31,10 @@ class OppressiveBridge(QtCore.QObject):
         self.STATE[store][_id] = json.loads(doc)
 
         # XXX: Think about a better way to do this.
-        json.dump(self.STATE[store], open(store + '.json', 'w'))
+        json.dump(self.STATE[store], open(self.jsonpath(store), 'w'))
+
+    def inject(self, webview):
+        frame = webview.page().mainFrame()
+        frame.addToJavaScriptWindowObject("qbridge", self)
+        frame.evaluateJavaScript("if(OP && OP.onload) { OP.onload(); }\n else { console.log('noop'); }")
+        
