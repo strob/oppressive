@@ -18,9 +18,11 @@ class OppressiveBridge(QtCore.QObject):
 
         # XXX: Think about (abs/rel)paths for bundled applications
         if path not in self.STATE:
+            print 'jsonpath', self.jsonpath(path)
             if os.path.exists(self.jsonpath(path)):
                 self.STATE[path] = json.load(open(self.jsonpath(path)))
             else:
+                print 'cache fail'
                 self.STATE[path] = {}
 
         return json.dumps(self.STATE[path])
