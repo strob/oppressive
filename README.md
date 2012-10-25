@@ -61,15 +61,30 @@ ConsumerProducts.json:
 Then, on page load, we might call something like:
 
 ```js
-OP.Subjectification.load(
-  {"ConsumerProducts": ConsumerProduct},
-  function() {
-    var products = OP.Subjectification.all(ConsumerProduct);
-    products.forEach(function(product) {
-        alert(product.name + ", $" + product.price);
-        product.sale();
-        alert("SALE! " + product.name + ", now only $" + product.price);
+OP.ready(function() {
+  OP.Subjectification.load(
+    {"ConsumerProducts": ConsumerProduct},
+    function() {
+      var products = OP.Subjectification.all(ConsumerProduct);
+      products.forEach(function(product) {
+          alert(product.name + ", $" + product.price);
+          product.sale();
+          alert("SALE! " + product.name + ", now only $" + product.price);
+      });
     });
-  });
+});
 ```
 
+## Issues
+
+- Sorting. This ... is sort of why one uses databases, no?
+
+- How does client-side code know when editing is possible?
+
+- Delete
+
+- Event system for realtime mode
+
+- UID generation
+
+- Upload
