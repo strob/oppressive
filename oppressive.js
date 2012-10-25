@@ -11,8 +11,8 @@ OP.Objection = function(id, doc) {
 OP.Objection.prototype.get = function(k) {
     return OP.Subjectification.obj[this[k]];
 };
-OP.Objection.prototype.getAll = function(ks) {
-    return ks.map(function(k) { return this.get(k); });
+OP.Objection.prototype.getAll = function(k) {
+    return (this[k] || []).map(function(x) { return this.get(x); });
 };
 OP.Objection.prototype.getDoc = function() {
     var doc = {};
