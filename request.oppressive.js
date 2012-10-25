@@ -28,6 +28,7 @@ OP.UTIL.load = function(uri, cb) {
             }
             else {
                 console.log("error loading " + uri, req.status);
+                cb("{}");
             }
         }
     };
