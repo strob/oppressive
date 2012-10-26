@@ -8,6 +8,7 @@ OP.ready = function(fn) {
 OP.Objection.prototype.save = function() {
     // XXX: Should _id be returned by a callback?
     qbridge.save(this.store, this._id, JSON.stringify(this.getDoc()));
+    this.onchange();
 };
 
 OP.Subjectification.load = function(jsonClassMap, cb) {

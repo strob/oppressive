@@ -24,8 +24,14 @@ OP.Objection.prototype.getDoc = function() {
     return doc;
 };
 OP.Objection.prototype.save = function() {
-    // XXX: Overwrite
+    this.onchange();
 };
+OP.Objection.prototype.deleteme = function() {
+    this.ondelete();
+};
+OP.Objection.prototype.onchange = function() {};
+OP.Objection.prototype.ondelete = function() {};
+
 
 // Load all object data on startup; anything too large for that can be
 // asynchronously loaded.
