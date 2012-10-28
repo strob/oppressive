@@ -40,3 +40,10 @@ class OppressiveBridge(QtCore.QObject):
         frame.addToJavaScriptWindowObject("qbridge", self)
         frame.evaluateJavaScript("if(OP && OP.onload) { OP.onload(); }\n else { console.log('noop'); }")
         
+
+    @QtCore.pyqtSlot(str, str)
+    def deleteme(self, store, _id):
+        store, _id = str(store), str(_id)
+        del self.STATE[store][_id]
+
+        json.dump(self.STATE[store], open(self.jsonpath(store), 'w'))

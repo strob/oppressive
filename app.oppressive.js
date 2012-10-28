@@ -10,6 +10,10 @@ OP.Objection.prototype.save = function() {
     qbridge.save(this.store, this._id, JSON.stringify(this.getDoc()));
     this.onchange();
 };
+OP.Objection.prototype.deleteme = function() {
+    qbridge.deleteme(this.store, this._id);
+    this.ondelete();
+};
 
 OP.Subjectification.load = function(jsonClassMap, cb) {
     for(var key in jsonClassMap) {
