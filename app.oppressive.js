@@ -1,3 +1,5 @@
+OP.app = true;
+
 // Hold off until QT injection is complete
 OP.ready = function(fn) {
     // race condition?
