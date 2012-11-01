@@ -2,29 +2,37 @@
 // See `script/json2js.py' for reference transformation implementation.
 OP.Subjectification.load = function(jsClassMap, cb) {
 
-    var nrem = 0;
-
     var make_load_function = function(cls) {
         return (function(res) {
-            nrem -= 1;
             for(var key in res) {
                 var obj = new cls(key, res[key]);
             }
-
-            console.log("nrem", nrem);
-            if(nrem === 0) {
-                cb();
-            }
+            load_next();
         });
     }
 
+    var jspaths = [];
+    var jsidx = 0;
+
     for(var jspath in jsClassMap) {
-        nrem += 1;
+        jspaths.push(jspath);
+    }
+
+    var load_next = function() {
+        if(jsidx >= jspaths.length) {
+            return cb();
+        }
+
+        var jspath = jspaths[jsidx];
 
         window.offload = make_load_function(jsClassMap[jspath]);
 
         var $el = document.createElement('script');
         $el.setAttribute('src', jspath + '.js');
         document.body.appendChild($el);
+
+        jsidx += 1;
     }
+
+    load_next();
 };
