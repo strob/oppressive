@@ -30,7 +30,9 @@ OP.Objection.prototype.deleteme = function() {
     this.ondelete();
 };
 OP.Objection.prototype.onchange = function() {};
-OP.Objection.prototype.ondelete = function() {};
+OP.Objection.prototype.ondelete = function() {
+    delete OP.Subjectification.obj[this._id];
+};
 
 
 // Load all object data on startup; anything too large for that can be
