@@ -6,7 +6,6 @@ import codecs
 import urllib2
 
 def unquote(x):
-    print "unquote", x, urllib2.unquote(str(x))
     return urllib2.unquote(str(x))
 
 class OppressiveBridge(QtCore.QObject):
