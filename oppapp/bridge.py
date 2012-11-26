@@ -38,8 +38,8 @@ class OppressiveBridge(QtCore.QObject):
     def inject(self, webview):
         frame = webview.page().mainFrame()
         frame.addToJavaScriptWindowObject("qbridge", self)
-        frame.evaluateJavaScript("if(OP && OP.onload) { OP.onload(); }\n else { console.log('noop'); }")
-        
+        frame.evaluateJavaScript("if(OP && OP.onload) { console.log('onload'); OP.onload(); }\n else { console.log('noop'); }")
+        frame.evaluateJavaScript("console.log('injection complete');")        
 
     @QtCore.pyqtSlot(str, str)
     def deleteme(self, store, _id):
