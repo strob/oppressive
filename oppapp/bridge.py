@@ -6,7 +6,7 @@ import codecs
 import urllib2
 
 def unquote(x):
-    return urllib2.unquote(x)
+    return urllib2.unquote(str(x))
 
 class OppressiveBridge(QtCore.QObject):
     def __init__(self, basepath='.'):
