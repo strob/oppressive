@@ -3,7 +3,7 @@ OP.app = true;
 // Hold off until QT injection is complete
 OP.ready = function(fn) {
     // race condition?
-    if(qbridge) { fn(); }
+    if(window.qbridge !== undefined) { fn(); }
     else { OP.onload = fn; }
 };
 
