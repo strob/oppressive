@@ -13,7 +13,7 @@ OP.ready = function(fn) {
 
 OP.Objection.prototype.save = function() {
     // XXX: Should _id be returned by a callback?
-    qbridge.save(OP.quote(this.store), OP.quote(this._id), OP.quote(OP.JSON.stringify(this.getDoc())));
+    qbridge.save(OP.quote(this.store), OP.quote(this._id), OP.quote(JSON.stringify(this.getDoc())));
     this.onchange();
 };
 OP.Objection.prototype.deleteme = function() {
